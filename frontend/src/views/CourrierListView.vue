@@ -17,12 +17,15 @@ const loading = ref(true)
 const error = ref(null)
 const filtreSens = ref('tous')
 
+// Directus ne sait pas suivre les vues SQL (vw_bo_courriers_suivi) comme une
+// collection : on recompose donc ici, côté client, ce que faisait la vue,
+// à partir de bo_courriers + ses alias parties/orientations.
 async function chargerCourriers() {
   loading.value = true
   error.value = null
   try {
-    courriers.value = await directus.request(
-      readItems('vw_bo_courriers_suivi', {
+    const bruts = await directus.request(
+      readItems('bo_courriers', {
         fields: [
           'id',
           'numero_chrono',
@@ -31,18 +34,41 @@ async function chargerCourriers() {
           'objet',
           'statut_code',
           'priorite_code',
-          'expediteur',
-          'destinataire',
-          'statut_orientation'
+          'parties.role_code',
+          'parties.libelle_snapshot',
+          'orientations.statut',
+          'orientations.date_transmission'
         ],
         sort: ['-date_enregistrement'],
         limit: 100
       })
     )
+
+    courriers.value = bruts.map((c) => {
+      const expediteur = c.parties?.find((p) => p.role_code === 'expediteur')?.libelle_snapshot ?? null
+      const destinataire = c.parties?.find((p) => p.role_code === 'destinataire')?.libelle_snapshot ?? null
+      const derniereOrientation = [...(c.orientations ?? [])].sort(
+        (a, b) => new Date(b.date_transmission) - new Date(a.date_transmission)
+      )[0]
+
+      return {
+        id: c.id,
+        numero_chrono: c.numero_chrono,
+        sens: c.sens,
+        date_enregistrement: c.date_enregistrement,
+        objet: c.objet,
+        statut_code: c.statut_code,
+        priorite_code: c.priorite_code,
+        expediteur,
+        destinataire,
+        statut_orientation: derniereOrientation?.statut ?? null
+      }
+    })
   } catch (e) {
     error.value =
-      "Impossible de charger les courriers. Vérifiez que vw_bo_courriers_suivi est " +
-      "bien adoptée comme collection dans Directus et que le jeton a les droits de lecture."
+      "Impossible de charger les courriers. Vérifiez que les alias 'parties' " +
+      "et 'orientations' existent bien sur bo_courriers, et que le jeton a les " +
+      "droits de lecture sur bo_courriers/bo_courrier_parties/bo_orientations."
     console.error(e)
   } finally {
     loading.value = false
