@@ -27,6 +27,17 @@ export const STATUTS_ORIENTATION = {
   annule: { libelle: 'Annulé', color: '#dc2626' }
 }
 
+export const STATUTS_DOSSIER = {
+  ouvert: { libelle: 'Ouvert', color: '#64748b' },
+  en_instruction: { libelle: 'En instruction', color: '#2563eb' },
+  en_attente_complement: { libelle: 'En attente de complément', color: '#d97706' },
+  avis_favorable: { libelle: 'Avis favorable', color: '#16a34a' },
+  avis_defavorable: { libelle: 'Avis défavorable', color: '#dc2626' },
+  decide: { libelle: 'Décidé', color: '#16a34a' },
+  clos: { libelle: 'Clos', color: '#64748b' },
+  archive: { libelle: 'Archivé', color: '#64748b' }
+}
+
 export const PRIORITES = {
   basse: { libelle: 'Basse', color: '#64748b' },
   normale: { libelle: 'Normale', color: '#2563eb' },

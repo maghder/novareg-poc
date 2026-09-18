@@ -8,6 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/" class="brand">NOVAREG · Bureau d'Ordre</RouterLink>
       <nav>
         <RouterLink to="/">Courriers</RouterLink>
+        <RouterLink to="/dossiers">Dossiers</RouterLink>
         <RouterLink to="/courriers/nouveau" class="cta">+ Enregistrer un courrier</RouterLink>
       </nav>
     </header>
