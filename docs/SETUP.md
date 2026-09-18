@@ -260,3 +260,24 @@ créneaux de démonstration.
   vérifiez que l'image du devcontainer est bien Node 22 (`node -v`) — les
   versions récentes de Directus embarquent un binaire précompilé pour
   cette version précise, pas pour Node 18/20.
+
+## Dette technique connue — à corriger avant tout usage réel
+
+**Séparation des rôles par métier (non faite à ce stade).** Aujourd'hui,
+la policy `Agent Bureau d'Ordre` donne accès à la fois aux collections
+`bo_*` (Bureau d'Ordre) et `dos_*` (Dossiers), parce que les permissions
+`dos_*` ont été ajoutées à cette policy existante par simplicité pendant
+le POC. Ce n'est pas le modèle cible.
+
+Modèle cible, à mettre en place avant toute mise à disposition à de vrais
+agents :
+
+| Rôle | Policy | Accès |
+|---|---|---|
+| Agent Bureau d'Ordre | À restreindre | Create/Read/Update sur les 7 `bo_*` uniquement + Read sur `org_unites`, `doc_documents`. **Retirer** l'accès à `dos_*`. |
+| Agent Direction Régulation | À créer | Create/Read/Update sur les 6 `dos_*` + Read sur `org_unites`, `core_tiers`, `doc_documents`, et Read seul (pas Create/Update) sur `bo_courriers` — uniquement pour résoudre l'affichage du courrier lié dans le détail d'un dossier, sans pouvoir le modifier. |
+
+Cette séparation vaut aussi pour les futurs modules (`reg_*`, `act_*`) :
+chaque direction métier devrait avoir sa propre policy, limitée aux
+collections qui la concernent, plutôt qu'une policy unique élargie au fil
+de l'eau.
