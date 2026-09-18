@@ -236,6 +236,162 @@ collections:
       versioning: false
     schema:
       name: doc_documents
+  - collection: dos_affectations
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_affectations
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_affectations
+  - collection: dos_courriers
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_courriers
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_courriers
+  - collection: dos_documents
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_documents
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_documents
+  - collection: dos_dossiers
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_dossiers
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_dossiers
+  - collection: dos_parties
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_parties
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_parties
+  - collection: dos_statuts_hist
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: dos_statuts_hist
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: dos_statuts_hist
   - collection: org_unites
     meta:
       accountability: all
@@ -401,6 +557,127 @@ fields:
       required: false
       searchable: true
       sort: 1
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: dos_dossiers
+    field: parties
+    type: alias
+    meta:
+      collection: dos_dossiers
+      conditions: null
+      display: null
+      display_options: null
+      field: parties
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        sort: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: dos_dossiers
+    field: courriers
+    type: alias
+    meta:
+      collection: dos_dossiers
+      conditions: null
+      display: null
+      display_options: null
+      field: courriers
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: dos_dossiers
+    field: documents
+    type: alias
+    meta:
+      collection: dos_dossiers
+      conditions: null
+      display: null
+      display_options: null
+      field: documents
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: dos_dossiers
+    field: affectations
+    type: alias
+    meta:
+      collection: dos_dossiers
+      conditions: null
+      display: null
+      display_options: null
+      field: affectations
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: dos_dossiers
+    field: statuts_historique
+    type: alias
+    meta:
+      collection: dos_dossiers
+      conditions: null
+      display: null
+      display_options: null
+      field: statuts_historique
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
       special:
         - o2m
       translations: null
@@ -581,5 +858,110 @@ relations:
       foreign_key_table: bo_courriers
       foreign_key_column: id
       constraint_name: bo_orientations_courrier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: dos_affectations
+    field: dossier_id
+    related_collection: dos_dossiers
+    meta:
+      junction_field: null
+      many_collection: dos_affectations
+      many_field: dossier_id
+      one_allowed_collections: null
+      one_collection: dos_dossiers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: affectations
+      sort_field: null
+    schema:
+      table: dos_affectations
+      column: dossier_id
+      foreign_key_table: dos_dossiers
+      foreign_key_column: id
+      constraint_name: dos_affectations_dossier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: dos_courriers
+    field: dossier_id
+    related_collection: dos_dossiers
+    meta:
+      junction_field: null
+      many_collection: dos_courriers
+      many_field: dossier_id
+      one_allowed_collections: null
+      one_collection: dos_dossiers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: courriers
+      sort_field: null
+    schema:
+      table: dos_courriers
+      column: dossier_id
+      foreign_key_table: dos_dossiers
+      foreign_key_column: id
+      constraint_name: dos_courriers_dossier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: dos_documents
+    field: dossier_id
+    related_collection: dos_dossiers
+    meta:
+      junction_field: null
+      many_collection: dos_documents
+      many_field: dossier_id
+      one_allowed_collections: null
+      one_collection: dos_dossiers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: documents
+      sort_field: null
+    schema:
+      table: dos_documents
+      column: dossier_id
+      foreign_key_table: dos_dossiers
+      foreign_key_column: id
+      constraint_name: dos_documents_dossier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: dos_parties
+    field: dossier_id
+    related_collection: dos_dossiers
+    meta:
+      junction_field: null
+      many_collection: dos_parties
+      many_field: dossier_id
+      one_allowed_collections: null
+      one_collection: dos_dossiers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: parties
+      sort_field: null
+    schema:
+      table: dos_parties
+      column: dossier_id
+      foreign_key_table: dos_dossiers
+      foreign_key_column: id
+      constraint_name: dos_parties_dossier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: dos_statuts_hist
+    field: dossier_id
+    related_collection: dos_dossiers
+    meta:
+      junction_field: null
+      many_collection: dos_statuts_hist
+      many_field: dossier_id
+      one_allowed_collections: null
+      one_collection: dos_dossiers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: statuts_historique
+      sort_field: null
+    schema:
+      table: dos_statuts_hist
+      column: dossier_id
+      foreign_key_table: dos_dossiers
+      foreign_key_column: id
+      constraint_name: dos_statuts_hist_dossier_id_fkey
       on_update: NO ACTION
       on_delete: SET NULL
