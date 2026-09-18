@@ -1,0 +1,585 @@
+version: 1
+directus: 12.3.1
+vendor: postgres
+collections:
+  - collection: bo_accuses_reception
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_accuses_reception
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_accuses_reception
+  - collection: bo_courrier_documents
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_courrier_documents
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_courrier_documents
+  - collection: bo_courrier_parties
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_courrier_parties
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_courrier_parties
+  - collection: bo_courriers
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_courriers
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_courriers
+  - collection: bo_expedition_tentatives
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_expedition_tentatives
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_expedition_tentatives
+  - collection: bo_expeditions
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_expeditions
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_expeditions
+  - collection: bo_orientations
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: bo_orientations
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bo_orientations
+  - collection: core_tiers
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: core_tiers
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: core_tiers
+  - collection: doc_documents
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: doc_documents
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: doc_documents
+  - collection: org_unites
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      autosave_revision_interval: null
+      collapse: open
+      collection: org_unites
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      status: active
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: org_unites
+fields:
+  - collection: bo_courriers
+    field: parties
+    type: alias
+    meta:
+      collection: bo_courriers
+      conditions: null
+      display: null
+      display_options: null
+      field: parties
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: bo_courriers
+    field: orientations
+    type: alias
+    meta:
+      collection: bo_courriers
+      conditions: null
+      display: null
+      display_options: null
+      field: orientations
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: bo_courriers
+    field: pieces_jointes
+    type: alias
+    meta:
+      collection: bo_courriers
+      conditions: null
+      display: null
+      display_options: null
+      field: pieces_jointes
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: bo_courriers
+    field: expeditions
+    type: alias
+    meta:
+      collection: bo_courriers
+      conditions: null
+      display: null
+      display_options: null
+      field: expeditions
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: bo_expedition_tentatives
+    field: accuses_reception
+    type: alias
+    meta:
+      collection: bo_expedition_tentatives
+      conditions: null
+      display: null
+      display_options: null
+      field: accuses_reception
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: bo_expeditions
+    field: tentatives
+    type: alias
+    meta:
+      collection: bo_expeditions
+      conditions: null
+      display: null
+      display_options: null
+      field: tentatives
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+systemFields:
+  - collection: directus_activity
+    field: timestamp
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_clients
+    field: date_created
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_codes
+    field: expires_at
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_codes
+    field: used_at
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_consents
+    field: client
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_tokens
+    field: code_hash
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_tokens
+    field: expires_at
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_tokens
+    field: previous_session
+    schema:
+      is_indexed: true
+  - collection: directus_oauth_tokens
+    field: session
+    schema:
+      is_indexed: true
+  - collection: directus_revisions
+    field: activity
+    schema:
+      is_indexed: true
+  - collection: directus_revisions
+    field: parent
+    schema:
+      is_indexed: true
+  - collection: directus_sessions
+    field: oauth_client
+    schema:
+      is_indexed: true
+relations:
+  - collection: bo_accuses_reception
+    field: tentative_id
+    related_collection: bo_expedition_tentatives
+    meta:
+      junction_field: null
+      many_collection: bo_accuses_reception
+      many_field: tentative_id
+      one_allowed_collections: null
+      one_collection: bo_expedition_tentatives
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: accuses_reception
+      sort_field: null
+    schema:
+      table: bo_accuses_reception
+      column: tentative_id
+      foreign_key_table: bo_expedition_tentatives
+      foreign_key_column: id
+      constraint_name: bo_accuses_reception_tentative_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: bo_courrier_documents
+    field: courrier_id
+    related_collection: bo_courriers
+    meta:
+      junction_field: null
+      many_collection: bo_courrier_documents
+      many_field: courrier_id
+      one_allowed_collections: null
+      one_collection: bo_courriers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: pieces_jointes
+      sort_field: null
+    schema:
+      table: bo_courrier_documents
+      column: courrier_id
+      foreign_key_table: bo_courriers
+      foreign_key_column: id
+      constraint_name: bo_courrier_documents_courrier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: bo_courrier_parties
+    field: courrier_id
+    related_collection: bo_courriers
+    meta:
+      junction_field: null
+      many_collection: bo_courrier_parties
+      many_field: courrier_id
+      one_allowed_collections: null
+      one_collection: bo_courriers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: parties
+      sort_field: null
+    schema:
+      table: bo_courrier_parties
+      column: courrier_id
+      foreign_key_table: bo_courriers
+      foreign_key_column: id
+      constraint_name: bo_courrier_parties_courrier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: bo_expedition_tentatives
+    field: expedition_id
+    related_collection: bo_expeditions
+    meta:
+      junction_field: null
+      many_collection: bo_expedition_tentatives
+      many_field: expedition_id
+      one_allowed_collections: null
+      one_collection: bo_expeditions
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: tentatives
+      sort_field: null
+    schema:
+      table: bo_expedition_tentatives
+      column: expedition_id
+      foreign_key_table: bo_expeditions
+      foreign_key_column: id
+      constraint_name: bo_expedition_tentatives_expedition_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: bo_expeditions
+    field: courrier_id
+    related_collection: bo_courriers
+    meta:
+      junction_field: null
+      many_collection: bo_expeditions
+      many_field: courrier_id
+      one_allowed_collections: null
+      one_collection: bo_courriers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: expeditions
+      sort_field: null
+    schema:
+      table: bo_expeditions
+      column: courrier_id
+      foreign_key_table: bo_courriers
+      foreign_key_column: id
+      constraint_name: bo_expeditions_courrier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: bo_orientations
+    field: courrier_id
+    related_collection: bo_courriers
+    meta:
+      junction_field: null
+      many_collection: bo_orientations
+      many_field: courrier_id
+      one_allowed_collections: null
+      one_collection: bo_courriers
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: orientations
+      sort_field: null
+    schema:
+      table: bo_orientations
+      column: courrier_id
+      foreign_key_table: bo_courriers
+      foreign_key_column: id
+      constraint_name: bo_orientations_courrier_id_fkey
+      on_update: NO ACTION
+      on_delete: SET NULL

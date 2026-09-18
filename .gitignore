@@ -4,5 +4,4 @@ dist/
 directus/.directus-key
 directus/uploads/
 directus/extensions/
-directus/snapshots/*.yaml
 !.env.example
