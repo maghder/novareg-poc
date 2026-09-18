@@ -1,0 +1,9 @@
+{
+  "name": "novareg-poc-directus",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Directus exécuté comme simple app Node dans le Codespace, sans Docker, branché sur Neon.",
+  "dependencies": {
+    "directus": "latest"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "NOVAREG POC - Directus (sans Docker) + Vue.js",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "forwardPorts": [8055, 5173],
+  "portsAttributes": {
+    "8055": {
+      "label": "Directus (API + Admin)",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Frontend Vue (Vite)",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "esbenp.prettier-vscode",
+        "ckolkman.vscode-postgres"
+      ]
+    }
+  }
+}
