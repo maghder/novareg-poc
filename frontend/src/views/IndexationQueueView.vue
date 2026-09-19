@@ -41,9 +41,7 @@ onMounted(charger)
     </div>
     <p class="hint">
       Retrouvez le courrier physique grâce au numéro ci-dessous (celui de l'étiquette collée
-      à la réception), puis scannez-le. L'écran d'indexation complet (extraction IA + validation)
-      arrive dans un prochain bloc — pour l'instant, cette file confirme juste que la réception
-      alimente correctement le poste suivant.
+      à la réception), scannez-le, puis cliquez la ligne pour compléter l'indexation.
     </p>
 
     <p v-if="loading" class="hint">Chargement…</p>
@@ -60,7 +58,12 @@ onMounted(charger)
         </tr>
       </thead>
       <tbody>
-        <tr v-for="c in courriers" :key="c.id">
+        <tr
+          v-for="c in courriers"
+          :key="c.id"
+          class="row-link"
+          @click="$router.push(`/indexation/${c.id}`)"
+        >
           <td class="mono">{{ c.numero_chrono }}</td>
           <td class="muted">{{ c.canal_code }}</td>
           <td>{{ formatDateTime(c.date_enregistrement) }}</td>
@@ -87,6 +90,8 @@ h1 { font-size: 1.3rem; margin: 0; }
   border-bottom: 1px solid var(--border);
 }
 .table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.row-link { cursor: pointer; }
+.row-link:hover { background: #f1f5f9; }
 .mono { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.9rem; }
 .muted { color: var(--muted); }
 .error { color: #dc2626; }
