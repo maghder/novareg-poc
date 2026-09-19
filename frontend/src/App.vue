@@ -7,6 +7,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <header class="app-header">
       <RouterLink to="/" class="brand">NOVAREG · Bureau d'Ordre</RouterLink>
       <nav>
+        <RouterLink to="/reception">Réception</RouterLink>
+        <RouterLink to="/indexation">À indexer</RouterLink>
         <RouterLink to="/">Courriers</RouterLink>
         <RouterLink to="/dossiers">Dossiers</RouterLink>
         <RouterLink to="/courriers/nouveau" class="cta">+ Enregistrer un courrier</RouterLink>

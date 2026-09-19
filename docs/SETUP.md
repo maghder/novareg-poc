@@ -261,6 +261,23 @@ créneaux de démonstration.
   versions récentes de Directus embarquent un binaire précompilé pour
   cette version précise, pas pour Node 18/20.
 
+- **Erreur CORS dans la Console (`blocked by CORS policy`), sur toutes
+  les pages du frontend d'un coup, alors que Directus répond bien en
+  `curl` avec les bons en-têtes `Access-Control-*`** : ce n'est
+  probablement pas un vrai problème CORS. Vérifiez la visibilité du port
+  8055 dans l'onglet *Ports* — s'il est passé en *Private* (ou l'a
+  toujours été), l'accès à `https://<codespace>-8055.app.github.dev`
+  exige une authentification GitHub propre à Codespaces, que le `fetch()`
+  du frontend n'envoie pas (pas de `credentials: 'include'`). Le
+  navigateur rapporte l'échec comme une erreur CORS, ce qui égare le
+  diagnostic. Correctif : clic droit sur le port 8055 → *Port
+  Visibility* → *Public*. Un test rapide pour confirmer cette piste :
+  ouvrir le frontend en navigation privée — si une page
+  d'authentification GitHub apparaît avant même d'atteindre l'app,
+  c'est confirmé. À repasser en *Private* dès que possible : Directus
+  garde sa propre authentification derrière, mais un port public
+  élargit la surface d'exposition.
+
 ## Dette technique connue — à corriger avant tout usage réel
 
 **Séparation des rôles par métier (non faite à ce stade).** Aujourd'hui,
