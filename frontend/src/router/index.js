@@ -7,6 +7,8 @@ import DossierDetailView from '../views/DossierDetailView.vue'
 import AgentReceptionView from '../views/AgentReceptionView.vue'
 import IndexationQueueView from '../views/IndexationQueueView.vue'
 import IndexationFormView from '../views/IndexationFormView.vue'
+import AffectationQueueView from '../views/AffectationQueueView.vue'
+import AffectationFormView from '../views/AffectationFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,7 +20,9 @@ const router = createRouter({
     { path: '/dossiers/:id', name: 'dossier-detail', component: DossierDetailView, props: true },
     { path: '/reception', name: 'agent-reception', component: AgentReceptionView },
     { path: '/indexation', name: 'indexation-queue', component: IndexationQueueView },
-    { path: '/indexation/:id', name: 'indexation-form', component: IndexationFormView, props: true }
+    { path: '/indexation/:id', name: 'indexation-form', component: IndexationFormView, props: true },
+    { path: '/affectation', name: 'affectation-queue', component: AffectationQueueView },
+    { path: '/affectation/:id', name: 'affectation-form', component: AffectationFormView, props: true }
   ]
 })
 

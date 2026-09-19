@@ -9,6 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/reception">Réception</RouterLink>
         <RouterLink to="/indexation">À indexer</RouterLink>
+        <RouterLink to="/affectation">À affecter</RouterLink>
         <RouterLink to="/">Courriers</RouterLink>
         <RouterLink to="/dossiers">Dossiers</RouterLink>
         <RouterLink to="/courriers/nouveau" class="cta">+ Enregistrer un courrier</RouterLink>
