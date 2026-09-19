@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { createItem } from '@directus/sdk'
 import { directus } from '../lib/directus'
@@ -7,6 +7,15 @@ import { directus } from '../lib/directus'
 const router = useRouter()
 const saving = ref(false)
 const error = ref(null)
+
+// Libellé de la partie interne, auto-affecté selon le sens — jamais saisi
+// à la main : pour une arrivée, le courrier est destiné au Bureau d'Ordre
+// en attente d'affectation ; pour un départ, il est initié par le Bureau
+// d'Ordre (ou l'unité) avant expédition.
+const PARTIE_INTERNE = {
+  arrivee: "Affectation (Bureau d'Ordre)",
+  depart: "Initiation (Bureau d'Ordre)"
+}
 
 const form = reactive({
   sens: 'arrivee',
@@ -17,29 +26,48 @@ const form = reactive({
   support_code: 'papier',
   priorite_code: 'normale',
   confidentialite_code: 'interne',
-  expediteur_libelle: '',
-  destinataire_libelle: "NOVAREG - Bureau d'Ordre",
   commentaire_bo: ''
 })
 
+// Seule la partie externe se saisit ; la partie interne est déduite du sens.
+const partieExterne = ref('')
+
+const estArrivee = computed(() => form.sens === 'arrivee')
+const partieInterne = computed(() => PARTIE_INTERNE[form.sens])
+const labelPartieExterne = computed(() => (estArrivee.value ? 'Expéditeur' : 'Destinataire'))
+const labelPartieInterne = computed(() => (estArrivee.value ? 'Destinataire' : 'Expéditeur'))
+
+// Changer de sens vide le champ externe : le contexte change complètement
+// (un expéditeur arrivée n'a aucune raison d'être pré-rempli comme
+// destinataire départ, par exemple).
+watch(
+  () => form.sens,
+  () => {
+    partieExterne.value = ''
+  }
+)
+
 // Reflète db/02_novareg_seed.sql — voir la note dans lib/labels.js
-const CANAUX = ['guichet', 'courrier_postal', 'email', 'portail_en_ligne', 'fax', 'remise_main_propre']
+const CANAUX = ['guichet', 'courrier_postal', 'email', 'portail_en_ligne', 'fax', 'remise_main_propre', 'recommande']
 const SUPPORTS = ['papier', 'electronique', 'mixte']
 const PRIORITES = ['basse', 'normale', 'haute', 'urgente']
 const CONFIDENTIALITES = ['public', 'interne', 'restreint', 'confidentiel', 'secret']
 
-function genererNumeroChrono(sens) {
-  const prefix = sens === 'arrivee' ? 'BO' : 'BO'
+function genererNumeroChrono() {
   const now = new Date()
   const rand = Math.floor(Math.random() * 900000 + 100000)
-  return `${prefix}-${now.getFullYear()}-${rand}`
+  return `BO-${now.getFullYear()}-${rand}`
 }
 
 async function enregistrer() {
+  if (!partieExterne.value.trim()) {
+    error.value = `Le champ « ${labelPartieExterne.value} » est obligatoire.`
+    return
+  }
   saving.value = true
   error.value = null
   try {
-    const numero_chrono = genererNumeroChrono(form.sens)
+    const numero_chrono = genererNumeroChrono()
 
     const courrier = await directus.request(
       createItem('bo_courriers', {
@@ -48,7 +76,10 @@ async function enregistrer() {
         objet: form.objet,
         reference_externe: form.reference_externe || null,
         date_document: form.date_document || null,
-        canal_code: form.canal_code,
+        // Le canal (comment le courrier est arrivé) n'a de sens que pour une
+        // arrivée. Pour un départ, le mode d'envoi se choisit plus tard, à
+        // l'étape d'expédition — on met une valeur neutre, non affichée.
+        canal_code: estArrivee.value ? form.canal_code : 'courrier_postal',
         support_code: form.support_code,
         priorite_code: form.priorite_code,
         confidentialite_code: form.confidentialite_code,
@@ -58,11 +89,14 @@ async function enregistrer() {
       })
     )
 
+    const expediteur_libelle = estArrivee.value ? partieExterne.value.trim() : partieInterne.value
+    const destinataire_libelle = estArrivee.value ? partieInterne.value : partieExterne.value.trim()
+
     await directus.request(
       createItem('bo_courrier_parties', {
         courrier_id: courrier.id,
         role_code: 'expediteur',
-        libelle_snapshot: form.expediteur_libelle,
+        libelle_snapshot: expediteur_libelle,
         ordre: 1
       })
     )
@@ -70,7 +104,7 @@ async function enregistrer() {
       createItem('bo_courrier_parties', {
         courrier_id: courrier.id,
         role_code: 'destinataire',
-        libelle_snapshot: form.destinataire_libelle,
+        libelle_snapshot: destinataire_libelle,
         ordre: 1
       })
     )
@@ -116,12 +150,12 @@ async function enregistrer() {
 
       <div class="row">
         <label>
-          Expéditeur
-          <input v-model="form.expediteur_libelle" required placeholder="Nom de l'expéditeur" />
+          {{ labelPartieExterne }}
+          <input v-model="partieExterne" required :placeholder="`Nom du ${labelPartieExterne.toLowerCase()}`" />
         </label>
         <label>
-          Destinataire
-          <input v-model="form.destinataire_libelle" required />
+          {{ labelPartieInterne }}
+          <input :value="partieInterne" disabled />
         </label>
       </div>
 
@@ -137,7 +171,7 @@ async function enregistrer() {
       </div>
 
       <div class="row three">
-        <label>
+        <label v-if="estArrivee">
           Canal
           <select v-model="form.canal_code">
             <option v-for="c in CANAUX" :key="c" :value="c">{{ c }}</option>
@@ -195,6 +229,7 @@ input, select, textarea {
   color: var(--text);
   background: white;
 }
+input:disabled { background: #f1f5f9; color: var(--muted); }
 button {
   align-self: flex-start;
   background: #0f172a;

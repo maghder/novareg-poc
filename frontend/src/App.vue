@@ -1,5 +1,12 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { onMounted, watch } from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { compteurs, rafraichirCompteurs } from './lib/counts'
+
+const route = useRoute()
+
+onMounted(rafraichirCompteurs)
+watch(() => route.fullPath, rafraichirCompteurs)
 </script>
 
 <template>
@@ -8,10 +15,22 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/" class="brand">NOVAREG · Bureau d'Ordre</RouterLink>
       <nav>
         <RouterLink to="/reception">Réception</RouterLink>
-        <RouterLink to="/indexation">À indexer</RouterLink>
-        <RouterLink to="/affectation">À affecter</RouterLink>
-        <RouterLink to="/expedition">À expédier</RouterLink>
-        <RouterLink to="/accuses-reception">AR à traiter</RouterLink>
+        <RouterLink to="/indexation">
+          À indexer
+          <span v-if="compteurs.indexation" class="badge">{{ compteurs.indexation }}</span>
+        </RouterLink>
+        <RouterLink to="/affectation">
+          À affecter
+          <span v-if="compteurs.affectation" class="badge">{{ compteurs.affectation }}</span>
+        </RouterLink>
+        <RouterLink to="/expedition">
+          À expédier
+          <span v-if="compteurs.expedition" class="badge">{{ compteurs.expedition }}</span>
+        </RouterLink>
+        <RouterLink to="/accuses-reception">
+          AR à traiter
+          <span v-if="compteurs.ar" class="badge">{{ compteurs.ar }}</span>
+        </RouterLink>
         <RouterLink to="/">Courriers</RouterLink>
         <RouterLink to="/dossiers">Dossiers</RouterLink>
         <RouterLink to="/courriers/nouveau" class="cta">+ Enregistrer un courrier</RouterLink>
@@ -48,7 +67,14 @@ body {
 }
 .brand { font-weight: 700; color: var(--text); text-decoration: none; font-size: 1.05rem; }
 .app-header nav { display: flex; align-items: center; gap: 18px; }
-.app-header nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+.app-header nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
 .app-header nav a.router-link-exact-active { color: var(--text); font-weight: 600; }
 .app-header nav a.cta {
   background: #0f172a;
@@ -56,6 +82,20 @@ body {
   padding: 7px 14px;
   border-radius: 8px;
   font-weight: 600;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
 }
 .app-main { flex: 1; padding: 28px; max-width: 1080px; width: 100%; margin: 0 auto; }
 </style>

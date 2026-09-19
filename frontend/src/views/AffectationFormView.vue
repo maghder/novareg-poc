@@ -32,6 +32,7 @@ async function charger() {
             'id',
             'numero_chrono',
             'objet',
+            'sens',
             'statut_code',
             'priorite_code',
             'parties.role_code',
@@ -53,8 +54,8 @@ async function charger() {
       expediteur: c.parties?.find((p) => p.role_code === 'expediteur')?.libelle_snapshot ?? null
     }
     unites.value = u
-    if (c.statut_code !== 'enregistre') {
-      error.value = `Ce courrier n'est plus en attente d'affectation (statut actuel : ${c.statut_code}).`
+    if (c.sens !== 'arrivee' || c.statut_code !== 'enregistre') {
+      error.value = `Ce courrier n'est pas éligible à l'affectation (sens : ${c.sens}, statut : ${c.statut_code}).`
     }
   } catch (e) {
     error.value = "Impossible de charger ce courrier ou la liste des unités. Vérifiez les droits de lecture."
@@ -111,7 +112,7 @@ onMounted(charger)
     </div>
     <p class="muted">Expéditeur : {{ courrier.expediteur || '—' }}</p>
 
-    <form v-if="courrier.statut_code === 'enregistre'" @submit.prevent="orienter" class="form">
+    <form v-if="courrier.sens === 'arrivee' && courrier.statut_code === 'enregistre'" @submit.prevent="orienter" class="form">
       <label class="field">
         Unité destinataire
         <select v-model="uniteDestinationId" required>

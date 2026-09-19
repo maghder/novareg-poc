@@ -15,7 +15,7 @@ async function charger() {
   try {
     const bruts = await directus.request(
       readItems('bo_courriers', {
-        filter: { statut_code: { _eq: 'enregistre' } },
+        filter: { statut_code: { _eq: 'enregistre' }, sens: { _eq: 'arrivee' } },
         fields: [
           'id',
           'numero_chrono',
