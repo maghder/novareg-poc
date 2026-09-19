@@ -26,6 +26,15 @@ const retour = ref({
   motif_retour: ''
 })
 
+// Le formulaire ne capture qu'une date (sans heure), mais date_distribution
+// et date_retour doivent être >= date_expedition (contrainte CHECK en base).
+// On force la fin de journée de la date choisie pour ne jamais être antérieur
+// à l'heure précise de l'expédition, même si les deux événements ont lieu le
+// même jour.
+function finDeJournee(dateStr) {
+  return new Date(`${dateStr}T23:59:59`).toISOString()
+}
+
 async function charger() {
   loading.value = true
   error.value = null
@@ -74,7 +83,7 @@ async function enregistrerAR() {
     )
     await directus.request(
       updateItem('bo_expedition_tentatives', props.id, {
-        date_distribution: ar.value.date_reception_ar,
+        date_distribution: finDeJournee(ar.value.date_reception_ar),
         statut_code: 'distribue'
       })
     )
@@ -102,7 +111,7 @@ async function enregistrerRetour() {
   try {
     await directus.request(
       updateItem('bo_expedition_tentatives', props.id, {
-        date_retour: retour.value.date_retour,
+        date_retour: finDeJournee(retour.value.date_retour),
         motif_retour: retour.value.motif_retour.trim(),
         statut_code: 'retourne'
       })
